@@ -2,6 +2,11 @@
 *.vcd
 *.cf
 
+# cocotb outputs
+**/__pycache__/
+**/sim_build/
+*.xml
+
 ## C .gitignore (for old GHDL versions)
 # Prerequisites
 *.d
