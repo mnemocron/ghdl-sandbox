@@ -1,0 +1,33 @@
+[*]
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Thu Jul  6 15:12:17 2023
+[*]
+[dumpfile] "/mnt/c/Users/simon/Downloads/ghdl-sandbox/src/divu10/wave.vcd"
+[dumpfile_mtime] "Thu Jul  6 15:10:23 2023"
+[dumpfile_size] 10977
+[savefile] "/mnt/c/Users/simon/Downloads/ghdl-sandbox/src/divu10/waveform.gtkw"
+[timestart] 0
+[size] 1908 1047
+[pos] -500 -274
+*-24.000000 9390000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] divu10_tb.
+[sst_width] 214
+[signals_width] 228
+[sst_expanded] 1
+[sst_vpaned_height] 309
+@28
+divu10_tb.clk_0
+@22
+divu10_tb.clk_0_count[7:0]
+@28
+divu10_tb.rst_n
+divu10_tb.divu10_inst.s00_tvalid
+@25
+divu10_tb.divu10_inst.s00_tdata[31:0]
+@28
+divu10_tb.divu10_inst.s00_tready
+divu10_tb.divu10_inst.m00_tvalid
+@25
+divu10_tb.divu10_inst.m00_tdata[31:0]
+[pattern_trace] 1
+[pattern_trace] 0
