@@ -15,14 +15,14 @@ async def stim_input(dut):
 	await RisingEdge(dut.clk)
 	# asynch assert of reset
 	await Timer(ACLK_PERIOD/10, units="ns")
-	dut.i_resetn = 0
+	dut.i_resetn.value = 0
 	await Timer(ACLK_PERIOD/10, units="ns")
 	assert dut.o_resetn == 0 , f"Asynchronous assert failed!"
 	await RisingEdge(dut.clk)
 	await RisingEdge(dut.clk)
 	# asynch deassert of reset
 	await Timer(ACLK_PERIOD/10, units="ns")
-	dut.i_resetn = 1
+	dut.i_resetn.value = 1
 	assert dut.o_resetn == 0 , f"Synchronous deassert failed!"
 	await RisingEdge(dut.clk)
 	await Timer(ACLK_PERIOD/10, units="ns")
