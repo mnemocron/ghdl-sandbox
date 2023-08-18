@@ -71,7 +71,6 @@ architecture arch_imp of cos_lut is
     to_signed( 16#7C48#,16), to_signed( 16#7D59#,16), to_signed( 16#7E1C#,16), to_signed( 16#7E91#,16)
   );
 
-  -- signal asdf     : std_logic_vector( (ACCUMULATOR_WIDTH-1) downto 0 ) := (others => '0');
   signal selector : unsigned((ADDR_WIDTH-1) downto 0) := (others => '0');
 begin
   selector <= unsigned(a);

@@ -1,0 +1,35 @@
+[*]
+[*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
+[*] Fri Aug 18 20:26:46 2023
+[*]
+[dumpfile] "C:\Users\simon\Downloads\FPGA\ghdl-sandbox\src\dsp\dds\cos_lut\lut_cos_sfix16_8_quart\wave.vcd"
+[dumpfile_mtime] "Fri Aug 18 20:25:44 2023"
+[dumpfile_size] 256116
+[savefile] "C:\Users\simon\Downloads\FPGA\ghdl-sandbox\src\dsp\dds\cos_lut\lut_cos_sfix16_8_quart\waveform.gtkw"
+[timestart] 0
+[size] 1858 1057
+[pos] -1929 -9
+*-27.000000 744900000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] tb_lut_cos_sfix16_8_quart.
+[sst_width] 197
+[signals_width] 261
+[sst_expanded] 1
+[sst_vpaned_height] 314
+@22
+tb_lut_cos_sfix16_8_quart.clk_count[31:0]
+@28
+tb_lut_cos_sfix16_8_quart.clk
+@8024
+tb_lut_cos_sfix16_8_quart.phase[4:0]
+@8420
+tb_lut_cos_sfix16_8_quart.amplitude[15:0]
+@28
+tb_lut_cos_sfix16_8_quart.inst_lut.invert_phase_reg
+tb_lut_cos_sfix16_8_quart.inst_lut.invert_signal_reg
+@8028
+tb_lut_cos_sfix16_8_quart.inst_lut.phase_address_reg[2:0]
+@8029
+tb_lut_cos_sfix16_8_quart.inst_lut.phase_address_d1[2:0]
+tb_lut_cos_sfix16_8_quart.inst_lut.phase_address_d2[2:0]
+[pattern_trace] 1
+[pattern_trace] 0

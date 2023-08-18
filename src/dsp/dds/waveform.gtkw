@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
-[*] Fri Aug 18 07:51:03 2023
+[*] Fri Aug 18 20:49:52 2023
 [*]
 [dumpfile] "C:\Users\simon\Downloads\FPGA\ghdl-sandbox\src\dsp\dds\wave.vcd"
-[dumpfile_mtime] "Fri Aug 18 07:50:51 2023"
-[dumpfile_size] 85420
+[dumpfile_mtime] "Fri Aug 18 20:49:26 2023"
+[dumpfile_size] 124788
 [savefile] "C:\Users\simon\Downloads\FPGA\ghdl-sandbox\src\dsp\dds\waveform.gtkw"
 [timestart] 0
 [size] 1920 1057
 [pos] -1 -1
-*-27.000000 330800000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-28.000000 330800000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] tb_dds.
 [sst_width] 197
 [signals_width] 343
@@ -27,11 +27,11 @@ tb_dds.swave[15:0]
 @8024
 tb_dds.pinc_inst.s_phase[31:0]
 tb_dds.pinc_inst.phase_address[10:0]
-@8025
-tb_dds.pinc_inst.phase_trunc[12:0]
 @28
 tb_dds.pinc_inst.phase_quandrant[1:0]
 tb_dds.pinc_inst.invert_phase
 tb_dds.pinc_inst.invert_signal
+@8421
+tb_dds.swave[15:0]
 [pattern_trace] 1
 [pattern_trace] 0

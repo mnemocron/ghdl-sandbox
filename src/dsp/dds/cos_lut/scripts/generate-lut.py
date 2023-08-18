@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 N = 16                  # resolution
-R = 32                  # RAM size
+R = 8                  # RAM size
 waveform = "cos"        # [ cos | sin ]
 datatype = "signed"     # [ signed | unsigned ]
 offset = 0.0            # DC offset

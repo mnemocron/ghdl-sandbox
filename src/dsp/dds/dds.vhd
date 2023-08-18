@@ -24,7 +24,8 @@ use ieee.numeric_std.all;
 entity dds is
   generic (
     DATA_WIDTH        : natural := 16;
-    ACCUMULATOR_WIDTH : natural := 32
+    ACCUMULATOR_WIDTH : natural := 32;
+    LUT_WIDTH         : natural := 11
   );
   port (
     clk        : in  std_logic;
@@ -60,9 +61,23 @@ architecture arch_imp of dds is
     );
   end component;
 
+  component lut_cos_sfix16_2048_full is
+    generic (
+        OPT_OUTREG_2  : boolean := false;
+        PHASE_WIDTH : natural := 11;
+        DATA_WIDTH  : natural := 16
+    );
+    port (
+      clk   : in std_logic;
+      -- rst_n : in std_logic; 
+      phase : in  std_logic_vector((PHASE_WIDTH-1) downto 0);
+      wave  : out std_logic_vector((DATA_WIDTH-1) downto 0)
+    );
+  end component;
+
   signal s_out_real      : std_logic_vector((DATA_WIDTH-1) downto 0 )         := (others => '0');
   signal s_phase         : std_logic_vector((ACCUMULATOR_WIDTH-1) downto 0)   := (others => '0');
-  signal phase_trunc     : std_logic_vector(12 downto 0)                      := (others => '0');
+  signal phase_trunc     : std_logic_vector((LUT_WIDTH-1) downto 0)           := (others => '0');
   signal phase_address   : std_logic_vector(10 downto 0)                      := (others => '0');
   signal phase_quandrant : std_logic_vector(1 downto 0)                       := (others => '0');
   signal invert_signal : std_logic := '0';
@@ -70,12 +85,7 @@ architecture arch_imp of dds is
 
 begin
 
-  phase_trunc <= s_phase((ACCUMULATOR_WIDTH-1) downto (ACCUMULATOR_WIDTH-13));
-  phase_address <= phase_trunc(10 downto 0);
-  phase_quandrant <= phase_trunc(12 downto 11);
-
-  invert_signal <= phase_quandrant(0) xor phase_quandrant(1);
-  invert_phase  <= phase_quandrant(0);
+  phase_trunc <= s_phase((ACCUMULATOR_WIDTH-1) downto (ACCUMULATOR_WIDTH-LUT_WIDTH));
 
   out_real <= s_out_real;
 
@@ -97,5 +107,18 @@ begin
       poff_1     => poff_1,     -- : in  std_logic_vector((ACCUMULATOR_WIDTH-1) downto 0);
       poff_2     => poff_2      -- : in  std_logic_vector((ACCUMULATOR_WIDTH-1) downto 0);
     );
+
+  lut_inst : lut_cos_sfix16_2048_full 
+    generic map (
+        OPT_OUTREG_2 => false,
+        PHASE_WIDTH  => LUT_WIDTH,
+        DATA_WIDTH   => DATA_WIDTH
+    )
+    port map (
+      clk   => clk,
+      phase => phase_trunc,
+      wave  => s_out_real 
+    );
+
 
 end arch_imp;

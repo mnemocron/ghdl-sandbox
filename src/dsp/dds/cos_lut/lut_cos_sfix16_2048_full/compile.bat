@@ -8,20 +8,16 @@ del /Q *.exe &
 del /Q *.cf &
 
 :: analyze
-ghdl -a phase_accumulator/phase_accumulator.vhd
-ghdl -a lut/mem_cos_sfix16_2048_full.vhd
-ghdl -a lut/lut_cos_sfix16_2048_full.vhd
-ghdl -a dds.vhd
-ghdl -a tb_dds.vhd
+ghdl -a mem_cos_sfix16_2048_full.vhd
+ghdl -a lut_cos_sfix16_2048_full.vhd
+ghdl -a tb_lut_cos_sfix16_2048_full.vhd
 
 :: elaborate
-ghdl -e phase_accumulator
 ghdl -e mem_cos_sfix16_2048_full
 ghdl -e lut_cos_sfix16_2048_full
-ghdl -e dds
-ghdl -e tb_dds
+ghdl -e tb_lut_cos_sfix16_2048_full
 :: run
-ghdl -r tb_dds --vcd=wave.vcd --stop-time=1us
+ghdl -r tb_lut_cos_sfix16_2048_full --vcd=wave.vcd --stop-time=12us
 gtkwave wave.vcd waveform.gtkw
 
 :: delete
