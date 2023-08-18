@@ -1,0 +1,32 @@
+[*]
+[*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
+[*] Fri Aug 18 17:29:13 2023
+[*]
+[dumpfile] "C:\Users\simon\Downloads\FPGA\ghdl-sandbox\src\dsp\dds\cos_lut\lut_cos_sfix16_128_quart\wave.vcd"
+[dumpfile_mtime] "Fri Aug 18 17:28:54 2023"
+[dumpfile_size] 261273
+[savefile] "C:\Users\simon\Downloads\FPGA\ghdl-sandbox\src\dsp\dds\cos_lut\lut_cos_sfix16_128_quart\waveform.gtkw"
+[timestart] 0
+[size] 1920 1057
+[pos] -1 -1
+*-30.000000 1000000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] tb_lut_cos_sfix16_128_quart.
+[sst_width] 197
+[signals_width] 261
+[sst_expanded] 1
+[sst_vpaned_height] 314
+@22
+tb_lut_cos_sfix16_128_quart.clk_count[31:0]
+@28
+tb_lut_cos_sfix16_128_quart.clk
+@8420
+tb_lut_cos_sfix16_128_quart.phase[8:0]
+@22
+tb_lut_cos_sfix16_128_quart.amplitude[15:0]
+tb_lut_cos_sfix16_128_quart.inst_lut.phase_address_reg[6:0]
+@8420
+tb_lut_cos_sfix16_128_quart.inst_lut.wave_unreg[15:0]
+@8421
+tb_lut_cos_sfix16_128_quart.inst_lut.wave[15:0]
+[pattern_trace] 1
+[pattern_trace] 0

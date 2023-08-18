@@ -1,0 +1,35 @@
+[*]
+[*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
+[*] Fri Aug 18 06:50:34 2023
+[*]
+[dumpfile] "C:\Users\simon\Downloads\FPGA\ghdl-sandbox\src\dsp_tb\phase_accumulator\wave.vcd"
+[dumpfile_mtime] "Fri Aug 18 06:50:28 2023"
+[dumpfile_size] 76136
+[savefile] "C:\Users\simon\Downloads\FPGA\ghdl-sandbox\src\dsp_tb\phase_accumulator\waveform.gtkw"
+[timestart] 0
+[size] 1920 1057
+[pos] -1 -1
+*-27.000000 44600000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] tb_phase_accumulator.
+[sst_width] 197
+[signals_width] 164
+[sst_expanded] 1
+[sst_vpaned_height] 314
+@22
+tb_phase_accumulator.clk_count[31:0]
+@28
+tb_phase_accumulator.clk
+tb_phase_accumulator.rst_n
+tb_phase_accumulator.acc_en
+@8025
+tb_phase_accumulator.phase[31:0]
+@22
+tb_phase_accumulator.ftw[31:0]
+tb_phase_accumulator.acc_imm[31:0]
+@28
+tb_phase_accumulator.acc_reload
+@22
+tb_phase_accumulator.poff_1[31:0]
+tb_phase_accumulator.poff_2[31:0]
+[pattern_trace] 1
+[pattern_trace] 0

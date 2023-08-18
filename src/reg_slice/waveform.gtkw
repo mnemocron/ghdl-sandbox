@@ -1,0 +1,25 @@
+[*]
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Fri Jul  7 12:39:07 2023
+[*]
+[dumpfile] "/mnt/c/Users/simon/Downloads/ghdl-sandbox/src/reg_slice/work/reg_slice_tb.vcd"
+[dumpfile_mtime] "Fri Jul  7 12:38:34 2023"
+[dumpfile_size] 7637
+[savefile] "/mnt/c/Users/simon/Downloads/ghdl-sandbox/src/reg_slice/waveform.gtkw"
+[timestart] 0
+[size] 1846 1047
+[pos] -1857 63
+*-25.000000 26300000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 214
+[signals_width] 170
+[sst_expanded] 1
+[sst_vpaned_height] 310
+@22
+reg_slice_tb.clk_count[7:0]
+@28
+reg_slice_tb.clk
+reg_slice_tb.sig_in[0]
+@29
+reg_slice_tb.sig_out[0]
+[pattern_trace] 1
+[pattern_trace] 0
