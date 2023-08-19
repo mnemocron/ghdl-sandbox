@@ -1,0 +1,44 @@
+[*]
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Sat Aug 19 13:15:03 2023
+[*]
+[dumpfile] "/mnt/c/Users/simon/Downloads/FPGA/ghdl-sandbox/src/dsp/dds/polyphase_dds/wave.vcd"
+[dumpfile_mtime] "Sat Aug 19 13:14:37 2023"
+[dumpfile_size] 783210
+[savefile] "/mnt/c/Users/simon/Downloads/FPGA/ghdl-sandbox/src/dsp/dds/polyphase_dds/waveform.gtkw"
+[timestart] 0
+[size] 1920 1057
+[pos] -1 -1
+*-27.000000 180760000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] tb_polyphase_dds.
+[treeopen] tb_polyphase_dds.pinc_inst.
+[treeopen] tb_polyphase_dds.pinc_inst.gen_dds_inst(0).
+[treeopen] tb_polyphase_dds.pinc_inst.gen_dds_inst(1).
+[treeopen] tb_polyphase_dds.pinc_inst.gen_dds_inst(2).
+[treeopen] tb_polyphase_dds.pinc_inst.gen_dds_inst(3).
+[sst_width] 214
+[signals_width] 343
+[sst_expanded] 1
+[sst_vpaned_height] 314
+@22
+tb_polyphase_dds.clk_count[31:0]
+@28
+tb_polyphase_dds.clk
+tb_polyphase_dds.dds_en
+@22
+tb_polyphase_dds.ftw[31:0]
+@8420
+tb_polyphase_dds.pinc_inst.gen_dds_inst(0).dds_inst.s_out_real[15:0]
+tb_polyphase_dds.pinc_inst.gen_dds_inst(1).dds_inst.s_out_real[15:0]
+tb_polyphase_dds.pinc_inst.gen_dds_inst(2).dds_inst.s_out_real[15:0]
+tb_polyphase_dds.pinc_inst.gen_dds_inst(3).dds_inst.s_out_real[15:0]
+@22
+tb_polyphase_dds.s_imag[63:0]
+tb_polyphase_dds.s_real[63:0]
+@28
+tb_polyphase_dds.tx_clk
+@8420
+tb_polyphase_dds.s_tx_real[15:0]
+tb_polyphase_dds.s_tx_imag[15:0]
+[pattern_trace] 1
+[pattern_trace] 0

@@ -1,29 +1,30 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Sat Aug 19 08:55:33 2023
+[*] Sat Aug 19 11:01:43 2023
 [*]
 [dumpfile] "/mnt/c/Users/simon/Downloads/FPGA/ghdl-sandbox/src/dsp/wave.vcd"
-[dumpfile_mtime] "Sat Aug 19 08:54:55 2023"
-[dumpfile_size] 132715
+[dumpfile_mtime] "Sat Aug 19 11:01:05 2023"
+[dumpfile_size] 173095
 [savefile] "/mnt/c/Users/simon/Downloads/FPGA/ghdl-sandbox/src/dsp/waveform.gtkw"
 [timestart] 0
 [size] 1908 1047
-[pos] -298 -311
-*-28.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] -619 -217
+*-27.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [sst_width] 214
 [signals_width] 150
 [sst_expanded] 1
-[sst_vpaned_height] 310
+[sst_vpaned_height] 309
 @22
-tb_dds_dut.clk_count[31:0]
+testbench_dsp.clk_count[31:0]
 @28
-tb_dds_dut.clk
-tb_dds_dut.dds_en
+testbench_dsp.clk
+testbench_dsp.dds_en
 @22
-tb_dds_dut.ftw[31:0]
-@8025
-tb_dds_dut.phase[31:0]
+testbench_dsp.ftw[31:0]
+@8022
+testbench_dsp.phase[31:0]
 @8420
-tb_dds_dut.swave[15:0]
+testbench_dsp.s_imag[15:0]
+testbench_dsp.s_real[15:0]
 [pattern_trace] 1
 [pattern_trace] 0

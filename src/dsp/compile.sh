@@ -8,20 +8,24 @@ rm -rf *.cf &
 
 # analyze
 ghdl -a dds/phase_accumulator/phase_accumulator.vhd
-ghdl -a dds/lut/mem_cos_sfix16_2048_full.vhd
-ghdl -a dds/lut/lut_cos_sfix16_2048_full.vhd
+ghdl -a dds/lut/lut_cos_sfix16_2048_full/mem_cos_sfix16_2048_full.vhd
+ghdl -a dds/lut/lut_cos_sfix16_2048_full/lut_cos_sfix16_2048_full.vhd
+ghdl -a dds/lut/lut_sin_sfix16_2048_full/mem_sin_sfix16_2048_full.vhd
+ghdl -a dds/lut/lut_sin_sfix16_2048_full/lut_sin_sfix16_2048_full.vhd
 ghdl -a dds/dds.vhd
-ghdl -a tb_dsp_dut.vhd
+ghdl -a testbench_dsp.vhd
 
 # elaborate
 ghdl -e phase_accumulator
 ghdl -e mem_cos_sfix16_2048_full
 ghdl -e lut_cos_sfix16_2048_full
+ghdl -e mem_sin_sfix16_2048_full
+ghdl -e lut_sin_sfix16_2048_full
 ghdl -e dds
-ghdl -e tb_dds_dut
+ghdl -e testbench_dsp
 
 # run
-ghdl -r tb_dds_dut --vcd=wave.vcd --stop-time=1us
+ghdl -r testbench_dsp --vcd=wave.vcd --stop-time=1us
 gtkwave wave.vcd waveform.gtkw
 
 # delete

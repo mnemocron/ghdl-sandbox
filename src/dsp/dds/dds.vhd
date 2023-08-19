@@ -22,9 +22,12 @@ use ieee.numeric_std.all;
 
 entity dds is
   generic (
-    DATA_WIDTH        : natural := 16;
-    ACCUMULATOR_WIDTH : natural := 32;
-    LUT_WIDTH         : natural := 11
+    DATA_WIDTH         : natural := 16;
+    ACCUMULATOR_WIDTH  : natural := 32;
+    LUT_WIDTH          : natural := 11;
+    OPT_PHASE_OFFSET_1 : boolean := false;
+    OPT_PHASE_OFFSET_2 : boolean := false; 
+    OPT_OUTREG_2       : boolean := false
   );
   port (
     clk        : in  std_logic;
