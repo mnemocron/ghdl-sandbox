@@ -4,12 +4,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 N = 16                  # resolution
-R = 8                  # RAM size
-waveform = "cos"        # [ cos | sin ]
+R = 2048                  # RAM size
+waveform = "sin"        # [ cos | sin ]
 datatype = "signed"     # [ signed | unsigned ]
 offset = 0.0            # DC offset
 amplitude = 0.99         # waveform scale
-compression = "quart" # [ full | half | quart ]
+compression = "full" # [ full | half | quart ]
 
 if datatype == "signed":
     datatype= "sfix"
@@ -31,7 +31,7 @@ x = x[0:-1]
 if waveform == "cos":
     y = np.power(2, N-1) * (offset + amplitude * np.cos(2*np.pi*x) )
 if waveform == "sin":
-    y = np.power(2, N-1) * (offset + amplitude * np.cos(2*np.pi*x) )
+    y = np.power(2, N-1) * (offset + amplitude * np.sin(2*np.pi*x) )
 y = y.astype('int64')
 
 with open(filename, 'w') as f:

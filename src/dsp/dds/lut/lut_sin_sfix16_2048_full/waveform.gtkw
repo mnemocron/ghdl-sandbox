@@ -1,0 +1,26 @@
+[*]
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Sat Aug 19 09:21:53 2023
+[*]
+[dumpfile] "/mnt/c/Users/simon/Downloads/FPGA/ghdl-sandbox/src/dsp/dds/cos_lut/lut_sin_sfix16_2048_full/wave.vcd"
+[dumpfile_mtime] "Sat Aug 19 09:21:18 2023"
+[dumpfile_size] 588936
+[savefile] "/mnt/c/Users/simon/Downloads/FPGA/ghdl-sandbox/src/dsp/dds/cos_lut/lut_sin_sfix16_2048_full/waveform.gtkw"
+[timestart] 0
+[size] 1920 1057
+[pos] -1 -1
+*-32.000000 6310000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 214
+[signals_width] 261
+[sst_expanded] 1
+[sst_vpaned_height] 314
+@22
+tb_lut_sin_sfix16_2048_full.clk_count[31:0]
+@28
+tb_lut_sin_sfix16_2048_full.clk
+@8024
+tb_lut_sin_sfix16_2048_full.phase[10:0]
+@8421
+tb_lut_sin_sfix16_2048_full.amplitude[15:0]
+[pattern_trace] 1
+[pattern_trace] 0

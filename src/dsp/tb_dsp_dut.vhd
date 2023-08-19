@@ -2,13 +2,14 @@
 -- Company:        
 -- Engineer:       simon.burkhardt
 -- 
--- Create Date:    2023-08-13
--- Design Name:    tb_dds
+-- Create Date:    
+-- Design Name:    
 -- Module Name:    
 -- Project Name:   
--- Target Devices: Xilinx DSP48E2
--- Tool Versions:  GHDL 4.0.0-dev
+-- Target Devices: 
+-- Tool Versions:  GHDL 0.37
 -- Description:    
+-- 
 -- Dependencies:   
 -- 
 -- Revision:
@@ -16,19 +17,20 @@
 -- Additional Comments:
 -- 
 ----------------------------------------------------------------------------------
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity tb_dds is
+entity tb_dds_dut is
   generic
   (
     DATA_WIDTH  : integer := 16;
     ACCUMULATOR_WIDTH : integer := 32
   );
-end tb_dds;
+end tb_dds_dut;
 
-architecture bh of tb_dds is
+architecture bh of tb_dds_dut is
 
   component dds is
     generic (
@@ -43,8 +45,7 @@ architecture bh of tb_dds is
       dds_en     : in  std_logic;
       poff_1     : in  std_logic_vector((ACCUMULATOR_WIDTH-1) downto 0);
       poff_2     : in  std_logic_vector((ACCUMULATOR_WIDTH-1) downto 0);
-      out_real   : out std_logic_vector((DATA_WIDTH-1) downto 0);
-      out_imag   : out std_logic_vector((DATA_WIDTH-1) downto 0)
+      out_real   : out std_logic_vector((DATA_WIDTH-1) downto 0)
     );
   end component;
 
@@ -57,8 +58,7 @@ architecture bh of tb_dds is
   signal dds_en     : std_logic;
   signal poff_1     : std_logic_vector((ACCUMULATOR_WIDTH-1) downto 0);
   signal poff_2     : std_logic_vector((ACCUMULATOR_WIDTH-1) downto 0);
-  signal s_imag     : std_logic_vector((DATA_WIDTH-1) downto 0);
-  signal s_real     : std_logic_vector((DATA_WIDTH-1) downto 0);
+  signal swave      : std_logic_vector((DATA_WIDTH-1) downto 0);
 
   signal clk_count  : std_logic_vector(31 downto 0) := (others => '0');
 begin
@@ -134,15 +134,14 @@ begin
       ACCUMULATOR_WIDTH => ACCUMULATOR_WIDTH
     )
     port map (
-      clk        => clk,
-      rst_n      => rst_n,
-      ftw        => ftw,
-      phase      => phase,
-      dds_en     => dds_en,
-      poff_1     => poff_1,
-      poff_2     => poff_2,
-      out_real   => s_real,
-      out_imag   => s_imag
+      clk        => clk,        -- : in  std_logic;
+      rst_n      => rst_n,      -- : in  std_logic;
+      ftw        => ftw,        -- : in  std_logic_vector((ACCUMULATOR_WIDTH-1) downto 0);
+      phase      => phase,      -- : out std_logic_vector((ACCUMULATOR_WIDTH-1) downto 0);
+      dds_en     => dds_en,     -- : in  std_logic;
+      poff_1     => poff_1,     -- : in  std_logic_vector((ACCUMULATOR_WIDTH-1) downto 0);
+      poff_2     => poff_2,     -- : in  std_logic_vector((ACCUMULATOR_WIDTH-1) downto 0);
+      out_real   => swave
     );
 
 end bh;

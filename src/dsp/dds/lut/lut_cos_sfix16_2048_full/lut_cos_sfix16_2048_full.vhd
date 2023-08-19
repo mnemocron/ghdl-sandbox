@@ -2,12 +2,12 @@
 -- Company:        
 -- Engineer:       simon.burkhardt
 -- 
--- Create Date:    
+-- Create Date:    2023-08-13
 -- Design Name:    lut_cos_sfix16_2048_full
--- Module Name:    lut_cos_sfix16_2048_full
+-- Module Name:    
 -- Project Name:   
--- Target Devices: 
--- Tool Versions:  
+-- Target Devices: Xilinx DSP48E2
+-- Tool Versions:  GHDL 4.0.0-dev
 -- Description:    
 -- Dependencies:   
 -- 
@@ -19,17 +19,15 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
---use ieee.std_logic_arith.all;
 
 entity lut_cos_sfix16_2048_full is
   generic (
-      OPT_OUTREG_2  : boolean := false;
-      PHASE_WIDTH : natural := 11;
-      DATA_WIDTH  : natural := 16
+      OPT_OUTREG_2 : boolean := false;
+      PHASE_WIDTH  : natural := 11;
+      DATA_WIDTH   : natural := 16
   );
   port (
-    clk   : in std_logic;
-    -- rst_n : in std_logic; 
+    clk   : in  std_logic;
     phase : in  std_logic_vector((PHASE_WIDTH-1) downto 0);
     wave  : out std_logic_vector((DATA_WIDTH-1) downto 0)
   );

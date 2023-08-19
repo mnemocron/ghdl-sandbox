@@ -2,14 +2,13 @@
 -- Company:        
 -- Engineer:       simon.burkhardt
 -- 
--- Create Date:    
--- Design Name:    
+-- Create Date:    2023-08-13
+-- Design Name:    tb_lut_cos_sfix16_2048_full
 -- Module Name:    
 -- Project Name:   
--- Target Devices: 
--- Tool Versions:  GHDL 0.37
+-- Target Devices: Xilinx DSP48E2
+-- Tool Versions:  GHDL 4.0.0-dev
 -- Description:    
--- 
 -- Dependencies:   
 -- 
 -- Revision:
@@ -22,7 +21,6 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
--- simulate both with OPT_DATA_REG = True / False
 entity tb_lut_cos_sfix16_2048_full is
   generic
   (
@@ -35,13 +33,12 @@ architecture bh of tb_lut_cos_sfix16_2048_full is
 
   component lut_cos_sfix16_2048_full is
     generic (
-        OPT_OUTREG_2  : boolean := false;
-        PHASE_WIDTH : natural := 11;
-        DATA_WIDTH  : natural := 16
+        OPT_OUTREG_2 : boolean := false;
+        PHASE_WIDTH  : natural := 11;
+        DATA_WIDTH   : natural := 16
     );
     port (
       clk   : in std_logic;
-      -- rst_n : in std_logic; 
       phase : in  std_logic_vector((PHASE_WIDTH-1) downto 0);
       wave  : out std_logic_vector((DATA_WIDTH-1) downto 0)
     );

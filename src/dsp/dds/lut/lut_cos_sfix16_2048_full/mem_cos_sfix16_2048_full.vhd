@@ -2,12 +2,12 @@
 -- Company:        
 -- Engineer:       simon.burkhardt
 -- 
--- Create Date:    
+-- Create Date:    2023-08-13
 -- Design Name:    mem_cos_sfix16_2048_full
--- Module Name:    mem_cos_sfix16_2048_full
+-- Module Name:    
 -- Project Name:   
--- Target Devices: 
--- Tool Versions:  
+-- Target Devices: Xilinx DSP48E2
+-- Tool Versions:  GHDL 4.0.0-dev
 -- Description:    
 -- Dependencies:   
 -- 
@@ -19,7 +19,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
---use ieee.std_logic_arith.all;
 
 entity mem_cos_sfix16_2048_full is
   generic (

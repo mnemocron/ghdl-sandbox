@@ -1,17 +1,17 @@
 [*]
-[*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
-[*] Fri Aug 18 20:49:52 2023
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Sat Aug 19 09:44:58 2023
 [*]
-[dumpfile] "C:\Users\simon\Downloads\FPGA\ghdl-sandbox\src\dsp\dds\wave.vcd"
-[dumpfile_mtime] "Fri Aug 18 20:49:26 2023"
-[dumpfile_size] 124788
-[savefile] "C:\Users\simon\Downloads\FPGA\ghdl-sandbox\src\dsp\dds\waveform.gtkw"
+[dumpfile] "/mnt/c/Users/simon/Downloads/FPGA/ghdl-sandbox/src/dsp/dds/wave.vcd"
+[dumpfile_mtime] "Sat Aug 19 09:44:42 2023"
+[dumpfile_size] 173088
+[savefile] "/mnt/c/Users/simon/Downloads/FPGA/ghdl-sandbox/src/dsp/dds/waveform.gtkw"
 [timestart] 0
 [size] 1920 1057
 [pos] -1 -1
-*-28.000000 330800000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-28.000000 351000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] tb_dds.
-[sst_width] 197
+[sst_width] 214
 [signals_width] 343
 [sst_expanded] 1
 [sst_vpaned_height] 314
@@ -23,15 +23,10 @@ tb_dds.clk
 tb_dds.dds_en
 @22
 tb_dds.phase[31:0]
-tb_dds.swave[15:0]
 @8024
 tb_dds.pinc_inst.s_phase[31:0]
-tb_dds.pinc_inst.phase_address[10:0]
-@28
-tb_dds.pinc_inst.phase_quandrant[1:0]
-tb_dds.pinc_inst.invert_phase
-tb_dds.pinc_inst.invert_signal
 @8421
-tb_dds.swave[15:0]
+tb_dds.s_imag[15:0]
+tb_dds.s_real[15:0]
 [pattern_trace] 1
 [pattern_trace] 0
