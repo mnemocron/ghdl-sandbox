@@ -32,12 +32,12 @@ architecture bh of tb_dds is
 
   component dds is
     generic (
-      DATA_WIDTH         : natural := 16;
-      ACCUMULATOR_WIDTH  : natural := 32;
-      LUT_WIDTH          : natural := 11;
-      OPT_PHASE_OFFSET_1 : boolean := false;
-      OPT_PHASE_OFFSET_2 : boolean := false; 
-      OPT_OUTREG_2       : boolean := false
+      DATA_WIDTH         : natural;
+      ACCUMULATOR_WIDTH  : natural;
+      LUT_WIDTH          : natural;
+      OPT_PHASE_OFFSET_1 : boolean;
+      OPT_PHASE_OFFSET_2 : boolean; 
+      OPT_OUTREG_2       : boolean
     );
     port (
       clk        : in  std_logic;
@@ -134,8 +134,9 @@ begin
 
   pinc_inst : dds 
     generic map (
-      DATA_WIDTH        => DATA_WIDTH,
-      ACCUMULATOR_WIDTH => ACCUMULATOR_WIDTH,
+      DATA_WIDTH         => DATA_WIDTH,
+      ACCUMULATOR_WIDTH  => ACCUMULATOR_WIDTH,
+      LUT_WIDTH          => 11,
       OPT_PHASE_OFFSET_1 => false,
       OPT_PHASE_OFFSET_2 => false, 
       OPT_OUTREG_2       => false
