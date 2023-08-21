@@ -1,0 +1,35 @@
+[*]
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Mon Aug 21 06:18:37 2023
+[*]
+[dumpfile] "/mnt/c/Users/simon/Downloads/FPGA/ghdl-sandbox/src/dsp/cic/wave.vcd"
+[dumpfile_mtime] "Mon Aug 21 06:17:23 2023"
+[dumpfile_size] 231354
+[savefile] "/mnt/c/Users/simon/Downloads/FPGA/ghdl-sandbox/src/dsp/cic/waveform.gtkw"
+[timestart] 0
+[size] 1908 1047
+[pos] -1 -1
+*-28.000000 1000000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] tb_cic_filter.
+[treeopen] tb_cic_filter.cic_inst.
+[treeopen] tb_cic_filter.cic_inst.gen_filter_inst(1).
+[sst_width] 214
+[signals_width] 261
+[sst_expanded] 1
+[sst_vpaned_height] 309
+@22
+tb_cic_filter.clk_count[31:0]
+@28
+tb_cic_filter.clk
+tb_cic_filter.dds_en
+tb_cic_filter.rst_n
+@8420
+tb_cic_filter.sigin[15:0]
+tb_cic_filter.sigout[15:0]
+tb_cic_filter.cic_inst.tap_din_inst.din[15:0]
+tb_cic_filter.cic_inst.tap_din_inst.dout[15:0]
+@8421
+tb_cic_filter.cic_inst.gen_filter_inst(1).tap_inst.din[15:0]
+tb_cic_filter.cic_inst.gen_filter_inst(1).tap_inst.dout[15:0]
+[pattern_trace] 1
+[pattern_trace] 0
