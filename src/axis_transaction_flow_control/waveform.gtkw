@@ -1,0 +1,38 @@
+[*]
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Wed Aug 30 13:53:21 2023
+[*]
+[dumpfile] "/mnt/c/Users/simon/Downloads/FPGA/repositories/ghdl-sandbox/src/axis_transaction_flow_control/wave.vcd"
+[dumpfile_mtime] "Wed Aug 30 13:52:48 2023"
+[dumpfile_size] 43641
+[savefile] "/mnt/c/Users/simon/Downloads/FPGA/repositories/ghdl-sandbox/src/axis_transaction_flow_control/waveform.gtkw"
+[timestart] 0
+[size] 1920 1057
+[pos] 34790 32824
+*-29.000000 885000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] tb_transaction_flow_control.
+[sst_width] 214
+[signals_width] 344
+[sst_expanded] 1
+[sst_vpaned_height] 314
+@25
+tb_transaction_flow_control.rx_clk_count[31:0]
+@28
+tb_transaction_flow_control.gt_clk
+tb_transaction_flow_control.rx_clk
+tb_transaction_flow_control.xoff
+@4008028
+tb_transaction_flow_control.pinc_inst.cdc_gray_reg[2:0]
+@28
+tb_transaction_flow_control.pinc_inst.gray_increment_valid
+@8024
+tb_transaction_flow_control.pinc_inst.cnt_up[7:0]
+tb_transaction_flow_control.pinc_inst.cnt_res[7:0]
+@28
+tb_transaction_flow_control.pinc_inst.pause_request_reg
+tb_transaction_flow_control.en_rx
+tb_transaction_flow_control.en_tx
+tb_transaction_flow_control.pinc_inst.en_cnt_up
+tb_transaction_flow_control.pinc_inst.en_cnt_dn
+[pattern_trace] 1
+[pattern_trace] 0

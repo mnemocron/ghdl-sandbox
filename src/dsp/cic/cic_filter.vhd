@@ -23,106 +23,93 @@ use ieee.numeric_std.all;
 entity cic_filter is
   generic (
     DATA_WIDTH       : natural := 16;
-    CIC_DELAY_LENGTH : natural := 5
+    CIC_DELAY_LENGTH : natural := 5;
+    OPT_PIPELINE_REG : boolean := false;
+    OPT_INREG        : boolean := false;
+    OPT_OUTREG       : boolean := false
   );
   port (
-    clk  : in  std_logic;
-    din  : in  std_logic_vector((DATA_WIDTH-1) downto 0);
-    dout : out std_logic_vector((DATA_WIDTH-1) downto 0)
+    clk   : in  std_logic;
+    din   : in  std_logic_vector((DATA_WIDTH-1) downto 0);
+    dout  : out std_logic_vector((DATA_WIDTH-1) downto 0)
   );
 end cic_filter;
 
 architecture arch_imp of cic_filter is
 
-  component cic_tap is
-    generic (
-      DATA_WIDTH  : natural := 16;
-      OPT_SUM_REG : boolean := false
-    );
-    port (
-      clk   : in  std_logic;
-      din   : in  std_logic_vector((DATA_WIDTH-1) downto 0);
-      dout  : out std_logic_vector((DATA_WIDTH-1) downto 0)
-    );
-  end component;
+  type t_vec_array is array (0 to (CIC_DELAY_LENGTH-1)) of std_logic_vector((DATA_WIDTH-1) downto 0);
+  signal delay_taps     : t_vec_array := (others=>(others=>'0'));  
 
-  type t_vec_array is array (0 to (CIC_DELAY_LENGTH-2)) of std_logic_vector((DATA_WIDTH-1) downto 0);
-  signal d_values     : t_vec_array;  
-  signal d_values_reg : t_vec_array;  
-
-  signal d_values_0 : std_logic_vector((DATA_WIDTH-1) downto 0);
-  signal d_values_1 : std_logic_vector((DATA_WIDTH-1) downto 0);
-  signal d_values_2 : std_logic_vector((DATA_WIDTH-1) downto 0);
-  signal d_values_reg_0 : std_logic_vector((DATA_WIDTH-1) downto 0);
-  signal d_values_reg_1 : std_logic_vector((DATA_WIDTH-1) downto 0);
-  signal d_values_reg_2 : std_logic_vector((DATA_WIDTH-1) downto 0);
+  signal s_din          : std_logic_vector((DATA_WIDTH-1) downto 0 ) := (others => '0');
+  signal s_din_reg      : std_logic_vector((DATA_WIDTH-1) downto 0 ) := (others => '0');
+  signal s_dout         : std_logic_vector((DATA_WIDTH-1) downto 0 ) := (others => '0');
+  signal s_dout_reg     : std_logic_vector((DATA_WIDTH-1) downto 0 ) := (others => '0');
+  signal s_comb_sum     : std_logic_vector((DATA_WIDTH-1) downto 0 ) := (others => '0');
+  signal s_comb         : std_logic_vector((DATA_WIDTH-1) downto 0 ) := (others => '0');
+  signal s_intg_sum     : std_logic_vector((DATA_WIDTH-1) downto 0 ) := (others => '0');
+  signal s_intg_dly     : std_logic_vector((DATA_WIDTH-1) downto 0 ) := (others => '0');
 
 begin
-  
-  tap_din_inst : cic_tap
-    generic map (
-      DATA_WIDTH  => DATA_WIDTH,
-      OPT_SUM_REG => false  
-    )
-    port map (
-      clk   => clk,
-      din   => din, 
-      dout  => d_values_0 --d_values(0)
-    );
 
-  -- tap_mid_inst : cic_tap
-  --   generic map (
-  --     DATA_WIDTH  => DATA_WIDTH,
-  --     OPT_SUM_REG => false  
-  --   )
-  --   port map (
-  --     clk   => clk,
-  --     din   => d_values_reg_0, 
-  --     dout  => d_values_1
-  --   );
+  -- s_comb_sum <= std_logic_vector( resize(signed(s_din) - signed(delay_taps(CIC_DELAY_LENGTH-1)), s_comb_sum'length) );
+  -- s_intg_sum <= std_logic_vector( resize(signed(s_comb) + signed(s_intg_dly), s_intg_sum'length) );
+  s_comb_sum <= std_logic_vector( signed(s_din) - signed(delay_taps(CIC_DELAY_LENGTH-1)) );
+  s_intg_sum <= std_logic_vector( signed(s_comb)/2 + signed(s_intg_dly)/2 );
 
-  -- gen_filter_inst :
-  --   for J in 1 to (CIC_DELAY_LENGTH-2) generate
-  --   tap_inst : cic_tap
-  --     generic map (
-  --       DATA_WIDTH  => DATA_WIDTH,
-  --       OPT_SUM_REG => false  
-  --     )
-  --     port map (
-  --       clk   => clk,
-  --       din   => d_values_reg(J-1), -- d_values(J-1), 
-  --       dout  => d_values(J) -- d_values(J)
-  --     );
-  -- end generate;
+  p_single_tap : process(clk)
+  begin
+    if rising_edge(clk) then
+      delay_taps(0) <= s_din;
+      s_intg_dly <= s_intg_sum;
+    end if;
+  end process;
 
-  tap_dout_inst : cic_tap
-    generic map (
-      DATA_WIDTH  => DATA_WIDTH,
-      OPT_SUM_REG => false  
-    )
-    port map (
-      clk   => clk,
-      din   => d_values_reg_0, -- d_values_reg(CIC_DELAY_LENGTH-2), 
-      dout  => d_values_2 -- dout
-    );
+  gen_tap_delays :
+   for J in 1 to (CIC_DELAY_LENGTH-2) generate
+     p_tap_delay_reg : process(clk)
+      begin
+        if rising_edge(clk) then
+          delay_taps(J+1) <= delay_taps(J);
+        end if;
+      end process;
+  end generate;
 
-  process(clk)
+  -- optional intermediate register
+  gen_reg : if OPT_PIPELINE_REG generate
+    p_reg : process(clk)
     begin
       if rising_edge(clk) then
-        d_values_reg_0 <= d_values_0;
-        d_values_reg_1 <= d_values_1;
-        d_values_reg_2 <= d_values_2;
+        s_comb <= s_comb_sum;
       end if;
     end process;
+  end generate;
+  -- no intermediate register to have a 3-input sum that can be handled in a single CLB LUT in Xilinx
+  gen_no_reg : if not OPT_PIPELINE_REG generate
+    s_comb <= s_comb_sum;
+  end generate;
 
-  --gen_value_reg :
-  --  for J in 0 to (CIC_DELAY_LENGTH-2) generate
-  --    process(clk)
-  --    begin
-  --      if rising_edge(clk) then
-  --        d_values_reg(J) <= d_values(J);
-  --      end if;
-  --    end process;
-  --end generate;
+  -- optional input register
+  gen_in_reg : if OPT_INREG generate
+    p_reg : process(clk)
+    begin
+      s_din <= s_din_reg;
+      if rising_edge(clk) then
+        s_din_reg <= din;
+      end if;
+    end process;
+  end generate;
+  
+  gen_in_no_reg : if not OPT_INREG generate
+    s_din <= din;
+  end generate;
+
+  -- optional output register
+  gen_out_reg : if OPT_OUTREG generate
+    dout <= s_intg_dly;
+  end generate;
+  
+  gen_out_no_reg : if not OPT_OUTREG generate
+    dout <= s_intg_sum;
+  end generate;
 
 end arch_imp;

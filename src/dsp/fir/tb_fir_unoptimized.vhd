@@ -70,6 +70,17 @@ architecture bh of tb_fir_unoptimized is
     );
   end component;
 
+  component lfsr16 is
+    generic (
+      N : natural := 16
+    );
+    port (
+      clk   : in  std_logic;
+      rst_n : in  std_logic;
+      dout  : out std_logic_vector((N-1) downto 0)
+    );
+  end component;
+
   constant CLK_PERIOD: TIME := 5 ns;
 
   signal clk        : std_logic;
@@ -87,6 +98,11 @@ architecture bh of tb_fir_unoptimized is
   signal poff_2     : std_logic_vector((ACCUMULATOR_WIDTH-1) downto 0) := (others => '0');
   signal s_imag     : std_logic_vector((DATA_WIDTH-1) downto 0) := (others => '0');
   signal s_real     : std_logic_vector((DATA_WIDTH-1) downto 0) := (others => '0');
+
+  signal noise        : std_logic_vector((DATA_WIDTH-1) downto 0) := (others => '0');
+  signal noise_scaled : std_logic_vector((DATA_WIDTH-1) downto 0) := (others => '0');
+  signal s_imag_noisy : std_logic_vector((DATA_WIDTH-1) downto 0) := (others => '0');
+  signal s_real_noisy : std_logic_vector((DATA_WIDTH-1) downto 0) := (others => '0');
 
 begin
 
@@ -112,12 +128,6 @@ begin
 
   p_test : process
   begin
-  -- 2356 = 
-  -- 4712 = 
-  -- 5890 = 
-  -- 4712 = 
-  -- 2356 = 
-
     c0 <= std_logic_vector( to_signed(2356, DATA_WIDTH) ); -- x"0020";
     c1 <= std_logic_vector( to_signed(4712, DATA_WIDTH) ); -- x"0040";
     c2 <= std_logic_vector( to_signed(5890, DATA_WIDTH) ); -- x"00FF";
@@ -195,7 +205,10 @@ begin
       out_imag   => s_imag
     );
 
-  sigin <= s_real;
+  sigin <= s_real_noisy;
+  noise_scaled(8 downto 0) <= noise(8 downto 0);
+  s_imag_noisy <= std_logic_vector( signed(s_imag) + signed(noise_scaled) );
+  s_real_noisy <= std_logic_vector( signed(s_real) + signed(noise_scaled) );
 
   fir_inst : fir_unoptimized 
     generic map (
@@ -211,6 +224,13 @@ begin
       c2   => c2,
       c3   => c3,
       c4   => c4
+    );
+
+  lfsr_inst : lfsr16 
+    port map (
+      clk   => clk,
+      rst_n => rst_n,
+      dout  => noise
     );
 
 end bh;

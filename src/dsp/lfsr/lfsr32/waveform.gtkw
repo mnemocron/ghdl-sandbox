@@ -1,0 +1,25 @@
+[*]
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Mon Aug 21 08:33:24 2023
+[*]
+[dumpfile] "/mnt/c/Users/simon/Downloads/FPGA/ghdl-sandbox/src/dsp/lfsr/wave.vcd"
+[dumpfile_mtime] "Mon Aug 21 08:32:54 2023"
+[dumpfile_size] 43555
+[savefile] "/mnt/c/Users/simon/Downloads/FPGA/ghdl-sandbox/src/dsp/lfsr/waveform.gtkw"
+[timestart] 0
+[size] 1908 1047
+[pos] -1 -1
+*-28.000000 914000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 214
+[signals_width] 261
+[sst_expanded] 1
+[sst_vpaned_height] 309
+@28
+tb_lfsr32.clk
+tb_lfsr32.rst_n
+@24
+tb_lfsr32.clk_count[31:0]
+@8023
+tb_lfsr32.ctr_val[31:0]
+[pattern_trace] 1
+[pattern_trace] 0

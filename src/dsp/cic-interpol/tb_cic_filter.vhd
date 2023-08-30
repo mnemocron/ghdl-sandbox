@@ -31,19 +31,21 @@ end tb_cic_filter;
 
 architecture bh of tb_cic_filter is
 
-  component cic_filter is
-  generic (
-    DATA_WIDTH       : natural;
-    CIC_DELAY_LENGTH : natural;
-    OPT_PIPELINE_REG : boolean;
-    OPT_INREG        : boolean;
-    OPT_OUTREG       : boolean
-  );
-  port (
-    clk   : in  std_logic;
-    din   : in  std_logic_vector((DATA_WIDTH-1) downto 0);
-    dout  : out std_logic_vector((DATA_WIDTH-1) downto 0)
-  );
+  component cic is
+    generic (
+      Bin : natural := 24;
+      R : natural := 8;
+      N : natural := 3;
+      M : natural := 1
+    );
+
+    port (
+      clk : in std_logic;
+      rst_n : in std_logic;
+      data_i : in signed(Bin - 1 downto 0);
+      clk_o : out std_logic;
+      data_o : out signed(Bin - 1 downto 0)
+    );
   end component;
 
   component dds is
@@ -79,14 +81,18 @@ architecture bh of tb_cic_filter is
     );
   end component;
 
-  constant CLK_PERIOD: TIME := 5 ns;
+  constant CLK_PERIOD    : TIME := 5 ns;
+  constant TX_CLK_PERIOD : TIME := 1.25 ns;
 
   signal clk        : std_logic;
+  signal tx_clk     : std_logic;
   signal rst_n      : std_logic;
-
   signal clk_count  : std_logic_vector(31 downto 0) := (others => '0');
+  signal tx_clk_count  : std_logic_vector(31 downto 0) := (others => '0');
+  
   signal sigin      : std_logic_vector((DATA_WIDTH -1) downto 0 ) := (others => '0');
   signal sigout     : std_logic_vector((DATA_WIDTH -1) downto 0 ) := (others => '0');
+  signal sigout_s   : signed((DATA_WIDTH -1) downto 0 ) := (others => '0');
 
   signal ftw        : std_logic_vector((ACCUMULATOR_WIDTH-1) downto 0) := (others => '0');
   signal phase      : std_logic_vector((ACCUMULATOR_WIDTH-1) downto 0) := (others => '0');
@@ -111,6 +117,15 @@ begin
    clk <= '0';
    wait for (CLK_PERIOD / 2);
    clk_count <= std_logic_vector(unsigned(clk_count) + 1);
+  end process;
+
+  p_tx_clk_gen : process
+  begin
+   tx_clk <= '1';
+   wait for (TX_CLK_PERIOD / 2);
+   tx_clk <= '0';
+   wait for (TX_CLK_PERIOD / 2);
+   tx_clk_count <= std_logic_vector(unsigned(tx_clk_count) + 1);
   end process;
 
   -- generate initial reset
@@ -202,19 +217,22 @@ begin
   s_real_noisy <= std_logic_vector( signed(s_real) + signed(noise_scaled) );
 
 
-  cic_inst : cic_filter
+  cic_inst : cic
     generic map (
-      DATA_WIDTH       => DATA_WIDTH,
-      CIC_DELAY_LENGTH => CIC_DELAY_LENGTH,
-      OPT_PIPELINE_REG => true,
-      OPT_INREG        => true,
-      OPT_OUTREG       => true
+      Bin => 16, -- : natural := 24;
+      R   => 4, -- : natural := 8;
+      N   => 10, -- : natural := 3;
+      M   => 1  -- : natural := 1
     )
     port map (
-      clk  => clk,
-      din  => sigin,
-      dout => sigout
+      clk    => clk,
+      rst_n  => rst_n,
+      data_i => signed(s_imag_noisy),
+      clk_o  => tx_clk,
+      data_o => sigout_s
     );
+
+    sigout <= std_logic_vector(sigout_s);
 
   lfsr_inst : lfsr16 
     port map (
