@@ -1,0 +1,28 @@
+[*]
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Wed Sep 20 10:32:09 2023
+[*]
+[dumpfile] "/mnt/c/Users/simon/Downloads/FPGA/repositories/ghdl-sandbox/src/transaction_augmented_flow_control/dummy_sender/wave.vcd"
+[dumpfile_mtime] "Wed Sep 20 10:30:52 2023"
+[dumpfile_size] 174484
+[savefile] "/mnt/c/Users/simon/Downloads/FPGA/repositories/ghdl-sandbox/src/transaction_augmented_flow_control/dummy_sender/waveform.gtkw"
+[timestart] 0
+[size] 3366 1407
+[pos] -1 -1
+*-28.000000 1328000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 214
+[signals_width] 206
+[sst_expanded] 1
+[sst_vpaned_height] 436
+@28
+tb_dummy_sender.tx_usrclk
+@22
+tb_dummy_sender.tx_usrclk_count[31:0]
+tb_dummy_sender.conf_burst_lengt[7:0]
+tb_dummy_sender.conf_burst_reload[7:0]
+@28
+tb_dummy_sender.tx_valid
+@29
+tb_dummy_sender.tx_pause_req
+[pattern_trace] 1
+[pattern_trace] 0
