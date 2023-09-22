@@ -16,7 +16,7 @@ ghdl -e transaction_augmented_flow_control
 ghdl -e tb_transaction_augmented_flow_control
 
 # run
-ghdl -r tb_transaction_augmented_flow_control --vcd=wave.vcd --stop-time=3us
+ghdl -r tb_transaction_augmented_flow_control --vcd=wave.vcd --stop-time=30us
 gtkwave wave.vcd waveform.gtkw
 
 # delete

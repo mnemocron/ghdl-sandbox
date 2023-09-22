@@ -47,20 +47,20 @@ end transaction_augmented_flow_control;
 
 architecture arch_imp of transaction_augmented_flow_control is
 
-  signal level_xoff : unsigned((THESHOLD_WIDTH-1) downto 0) := (others => '0');
-  signal level_xon  : unsigned((THESHOLD_WIDTH-1) downto 0) := (others => '0');
-  signal tx_ticks : std_logic := '0';
+  signal level_xoff      : unsigned((THESHOLD_WIDTH-1) downto 0) := (others => '0');
+  signal level_xon       : unsigned((THESHOLD_WIDTH-1) downto 0) := (others => '0');
+  signal level_crossover : unsigned((THESHOLD_WIDTH-1) downto 0) := (others => '0');
+  signal maxpoint_crossed : std_logic := '0';
+
+  signal tx_ticks       : std_logic := '0';
   signal tx_ticks_async : std_logic := '0';
   signal tx_ticks_cdc   : std_logic := '0';
   signal tx_ticks_reg   : std_logic := '0';
-  
-  signal tx_cnt_cdc : std_logic := '0';
-  signal tx_cnt_prv : std_logic := '0';
 
   signal tx_count : unsigned((ACCUMULATOR_WIDTH-1) downto 0) := (others => '0');
   signal rx_count : unsigned((ACCUMULATOR_WIDTH-1) downto 0) := (others => '0');
-  signal xfer_count : unsigned((ACCUMULATOR_WIDTH-1) downto 0) := (others => '0');
-  signal xfer_count_freeze : unsigned((ACCUMULATOR_WIDTH-1) downto 0) := (others => '0');
+  signal xfer_level : unsigned((ACCUMULATOR_WIDTH-1) downto 0) := (others => '0');
+  signal xfer_level_freeze : unsigned((ACCUMULATOR_WIDTH-1) downto 0) := (others => '0');
   signal tx_count_freeze : unsigned((ACCUMULATOR_WIDTH-1) downto 0) := (others => '0');
   signal augment_count : unsigned((ACCUMULATOR_WIDTH-1) downto 0) := (others => '0');
 
@@ -86,9 +86,16 @@ begin
     if rising_edge(tx_usrclk2) then
       level_xoff <= unsigned(thresh_full);
       level_xon  <= unsigned(thresh_empty);
+      -- crossover level is the threshold that the level needs to cross after crossing the XOFF threshold
+      -- before the XON threshold becomes active. This allows the XON threshold to be set higher than the XOFF threshold.
+      -- Which allows for tighter control. This mechanism is enabled by the large latency between pause asserted (XOFF)
+      -- and the sender actually stopping transmission.
+      level_crossover <= level_xoff + to_unsigned(20, 8);
     end if;
   end process;
 
+  -- tx_ticks is a 1-bit gray counter counting clock cycles of the tx clock
+  -- the higher frequency clocks can use this gray counter to actually count the clock ticks
   p_tx_gray_counter : process(axis_aclk)
   begin
     if rising_edge(axis_aclk) then
@@ -96,6 +103,8 @@ begin
     end if;
   end process;
 
+  -- copy rx_ticks to rx_clk domain 
+  -- (rx_clk also fulfills nyquist theorem with more than 2x clock rate than tx_ticks)
   p_cdc_slow_to_rxclk : process(rx_usrclk2)
   begin
     if rising_edge(rx_usrclk2) then
@@ -105,20 +114,21 @@ begin
     end if;
   end process;
 
+  -- count tx transfers if there are transfers remaining in the xfer_level register
   p_tx_counter : process(rx_usrclk2)
   begin
     if rising_edge(rx_usrclk2) then
-      --if tx_cnt_cdc /= tx_cnt_prv then
-      if tx_ticks_reg /= tx_ticks_cdc then
-        if xfer_count > 1 then
+      if tx_ticks_reg /= tx_ticks_cdc then -- if the gray code has changed
+        if xfer_level > 0 then -- if total transfer count allows to be subtracted
           tx_count <= tx_count +1;
         end if;
       else
-        tx_count <= tx_count;
+        tx_count <= tx_count; -- if tx clock allows a transfer, but nothing is left in the xfer_level "fifo"
       end if;
     end if;
   end process;
 
+  -- count actual, real, valid incoming rx transfers
   p_rx_counter : process(rx_usrclk2)
   begin
     if rising_edge(rx_usrclk2) then
@@ -130,64 +140,75 @@ begin
     end if;
   end process;
 
-  p_transaction_counter : process(rx_usrclk2)
+  -- augmentet FIFO level
+  p_augmented_fifo_counter : process(rx_usrclk2)
   begin
     if rising_edge(rx_usrclk2) then
-      xfer_count <= rx_count - tx_count;
+      xfer_level <= rx_count - tx_count;  -- incoming minus (theoretically possible) outgoing transfers
     end if;
   end process;
 
+  -- FSM to switch the augmentation counter 
   p_augmentation_fsm : process(rx_usrclk2)
   begin
     if rising_edge(rx_usrclk2) then
-      -- if augment_state = STATE_MIRROR then
-      if augment_state = '0' then
-        -- if pause_state = PFC_XOFF then
-        if pause_state = '1' then
-          -- augment_state <= STATE_PREDICT;
-          augment_state <= '1';
+      if augment_state = '0' then -- if STATE_MIRROR
+        if pause_state = '1' then -- if XOFF 
+          -- when xoff is active, pretend that it is effective immediately (augment)
+          augment_state <= '1'; -- STATE_PREDICT
         end if;
       else 
-        if xfer_count < augment_count then
-          -- augment_state <= STATE_MIRROR;
-          augment_state <= '0';
+        if xfer_level < augment_count then
+          -- when the actual transfer level sinks below the augmented level
+          -- it means that the sender stopped sending entirely --> switch back to regular counting
+          augment_state <= '0'; -- STATE_MIRROR
         end if;
       end if;
     end if;
   end process;
 
+  -- the augmentation counter is used for the actual XON/XOFF mechanism
   p_augmentatoin_counter : process(rx_usrclk2)
   begin
     if rising_edge(rx_usrclk2) then
-      -- if augment_state = STATE_MIRROR then
-      if augment_state = '0' then
-        augment_count <= xfer_count;
-        xfer_count_freeze <= xfer_count;
+      if augment_state = '0' then -- if STATE_MIRROR
+        augment_count <= xfer_level;  -- mirror the actual transfer level on the augmentation counter
+        xfer_level_freeze <= xfer_level; -- keep a copy that freezes on the 
         tx_count_freeze <= tx_count;
       else 
-        augment_count <= xfer_count_freeze - (tx_count_freeze - tx_count);
+        -- TODO. is it guaranteed that no xfers are lost when switching between states?
+        --augment_count <= xfer_level_freeze - (tx_count_freeze - tx_count);
+        augment_count <= xfer_level - tx_count;
       end if;
     end if;
   end process;
 
+  -- the implementation of the pause mechanism
+  -- if the level is above XOFF threshold, request a pause
+  -- if it is below XON thresshold, deassert the pause
   p_pause_fsm : process(rx_usrclk2)
   begin
     if rising_edge(rx_usrclk2) then
-      -- if pause_state = PFC_XON then
       if pause_state = '0' then
-        if augment_count > level_xoff then
-          -- pause_state <= PFC_XOFF;
+        if augment_count > level_xoff then -- must not be >= because of initial conditions 0 >= 0 triggers pause
           pause_state <= '1';
+          maxpoint_crossed <= '0';
         end if;
       else
-        if augment_count < level_xon then
-          -- pause_state <= PFC_XON;
-          pause_state <= '0';
+        if maxpoint_crossed = '1' then
+          if augment_count < level_xon then
+            pause_state <= '0';
+          end if;
+        else
+          if augment_count > level_crossover then
+            maxpoint_crossed <= '1';
+          end if;
         end if;
       end if;
     end if;
   end process;
 
+  -- synchronize to tx_usrclk and if asserted, keep asserted for min. 16 clock cycles
   p_pause_gen : process(tx_usrclk2)
   begin
     if rising_edge(tx_usrclk2) then

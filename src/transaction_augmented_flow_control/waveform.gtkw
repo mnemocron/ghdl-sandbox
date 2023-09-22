@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Wed Sep 20 10:48:19 2023
+[*] Thu Sep 21 09:06:31 2023
 [*]
 [dumpfile] "/mnt/c/Users/simon/Downloads/FPGA/repositories/ghdl-sandbox/src/transaction_augmented_flow_control/wave.vcd"
-[dumpfile_mtime] "Wed Sep 20 10:47:18 2023"
-[dumpfile_size] 444741
+[dumpfile_mtime] "Thu Sep 21 09:04:09 2023"
+[dumpfile_size] 4683415
 [savefile] "/mnt/c/Users/simon/Downloads/FPGA/repositories/ghdl-sandbox/src/transaction_augmented_flow_control/waveform.gtkw"
 [timestart] 0
 [size] 3366 1407
 [pos] 34610 32827
-*-29.000000 3000000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-25.000000 94100000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] tb_transaction_augmented_flow_control.
 [sst_width] 214
 [signals_width] 344
@@ -20,19 +20,14 @@
 tb_transaction_augmented_flow_control.rx_usrclk
 tb_transaction_augmented_flow_control.tx_usrclk
 tb_transaction_augmented_flow_control.axis_aclk
-@24
-tb_transaction_augmented_flow_control.flow_control_inst.level_xoff[7:0]
-@8024
-tb_transaction_augmented_flow_control.flow_control_inst.augment_count[15:0]
-@28
-tb_transaction_augmented_flow_control.flow_control_inst.augment_state
-[color] 1
-tb_transaction_augmented_flow_control.flow_control_inst.pause_state
-@29
-tb_transaction_augmented_flow_control.sender_inst.effective_pause
-@24
-tb_transaction_augmented_flow_control.flow_control_inst.level_xon[7:0]
-@28
 tb_transaction_augmented_flow_control.tx_valid
+@24
+tb_transaction_augmented_flow_control.flow_control_inst.rx_count[31:0]
+tb_transaction_augmented_flow_control.flow_control_inst.tx_count[31:0]
+[color] 3
+tb_transaction_augmented_flow_control.flow_control_inst.xfer_level[31:0]
+tb_transaction_augmented_flow_control.flow_control_inst.augment_count[31:0]
+@28
+tb_transaction_augmented_flow_control.flow_control_inst.pause_state
 [pattern_trace] 1
 [pattern_trace] 0

@@ -26,8 +26,8 @@ use ieee.numeric_std.all;
 entity tb_transaction_augmented_flow_control is
   generic
   (
-      ACCUMULATOR_WIDTH  : natural := 16;
-      THESHOLD_WIDTH     : natural := 8
+      ACCUMULATOR_WIDTH  : natural := 32;
+      THESHOLD_WIDTH     : natural := 16
   );
 end tb_transaction_augmented_flow_control;
 
@@ -64,7 +64,7 @@ architecture bh of tb_transaction_augmented_flow_control is
   end component;
 
   constant TX_USRCLK_PERIOD: TIME := 3.103 ns; -- 322.265625
-  constant RX_USRCLK_PERIOD: TIME := 3.299 ns; -- slightly off
+  constant RX_USRCLK_PERIOD: TIME := 3.102 ns; -- slightly off
   constant AXI_CLK_PERIOD: TIME := 8 ns;     -- 125
 
   signal tx_usrclk     : std_logic;
@@ -92,27 +92,27 @@ begin
   -- generate clk signal
   p_tx_usrclk_gen : process
   begin
-   tx_usrclk <= '1';
-   wait for (TX_USRCLK_PERIOD / 2);
    tx_usrclk <= '0';
+   wait for (TX_USRCLK_PERIOD / 2);
+   tx_usrclk <= '1';
    wait for (TX_USRCLK_PERIOD / 2);
    tx_usrclk_count <= tx_usrclk_count + 1;
   end process;
 
   p_rx_usrclk_gen : process
   begin
-   rx_usrclk <= '1';
-   wait for (RX_USRCLK_PERIOD / 2);
    rx_usrclk <= '0';
+   wait for (RX_USRCLK_PERIOD / 2);
+   rx_usrclk <= '1';
    wait for (RX_USRCLK_PERIOD / 2);
    rx_usrclk_count <= rx_usrclk_count + 1;
   end process;
 
   p_axis_aclk_gen : process
   begin
-   axis_aclk <= '1';
-   wait for (AXI_CLK_PERIOD / 2);
    axis_aclk <= '0';
+   wait for (AXI_CLK_PERIOD / 2);
+   axis_aclk <= '1';
    wait for (AXI_CLK_PERIOD / 2);
    axis_aclk_count <= axis_aclk_count + 1;
   end process;
@@ -121,18 +121,22 @@ begin
   begin
     if rising_edge(rx_usrclk) then
       if rx_usrclk_count = 1 then
-        thresh_xoff <= to_unsigned(27, THESHOLD_WIDTH);
-        thresh_xon  <= to_unsigned(23, THESHOLD_WIDTH);
+        thresh_xoff <= to_unsigned(12, THESHOLD_WIDTH);
+        thresh_xon  <= to_unsigned(10, THESHOLD_WIDTH);
       end if;
 
       if rx_usrclk_count = 2 then
-        conf_latency <= to_unsigned(55, 8);
-        conf_burst_lengt  <= to_unsigned(16, 8);
-        conf_burst_reload <= to_unsigned( 1, 8);
+        conf_latency <= to_unsigned(107, 8);
+        conf_burst_lengt  <= to_unsigned(64, 8);
+        conf_burst_reload <= to_unsigned( 4, 8);
       end if;
 
       if rx_usrclk_count = 3 then
         en_tx <= '1';
+      end if;
+
+      if rx_usrclk_count = 28 then
+        en_tx <= '0';
       end if;
 
     end if;
