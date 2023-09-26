@@ -1,0 +1,33 @@
+[*]
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Tue Sep 26 07:50:21 2023
+[*]
+[dumpfile] "/mnt/c/Users/simon/Downloads/FPGA/repositories/ghdl-sandbox/src/pause_req_cdc_ctrl/wave.vcd"
+[dumpfile_mtime] "Tue Sep 26 07:49:59 2023"
+[dumpfile_size] 46531
+[savefile] "/mnt/c/Users/simon/Downloads/FPGA/repositories/ghdl-sandbox/src/pause_req_cdc_ctrl/waveform.gtkw"
+[timestart] 0
+[size] 1920 1057
+[pos] 34790 32824
+*-26.000000 46900000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 214
+[signals_width] 344
+[sst_expanded] 1
+[sst_vpaned_height] 314
+@28
+tb_pause_req_cdc_ctrl.rx_clk
+tb_pause_req_cdc_ctrl.tx_clk
+@22
+tb_pause_req_cdc_ctrl.rx_clk_count[31:0]
+tb_pause_req_cdc_ctrl.tx_clk_count[31:0]
+tb_pause_req_cdc_ctrl.cmac_pause_req[8:0]
+@28
+tb_pause_req_cdc_ctrl.en_custm
+@23
+tb_pause_req_cdc_ctrl.pause_req_to_custm[8:0]
+@28
+tb_pause_req_cdc_ctrl.en_ernic
+@22
+tb_pause_req_cdc_ctrl.pause_req_to_ernic[8:0]
+[pattern_trace] 1
+[pattern_trace] 0
